@@ -1,0 +1,19 @@
+# Eclipse/STS metadata
+.metadata/
+*.log
+*.tmp
+*.bak
+
+# Build outputs
+/target/
+/bin/
+/build/
+
+# OS junk files
+.DS_Store
+Thumbs.db
+
+# IDE config
+.classpath
+.project
+.settings/

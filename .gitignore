@@ -1,5 +1,6 @@
 # Eclipse/STS metadata
 .metadata/
+Servers
 *.log
 *.tmp
 *.bak

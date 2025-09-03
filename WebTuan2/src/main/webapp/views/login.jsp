@@ -18,6 +18,11 @@
             <div class="alert alert-danger">${alert}</div>
         </c:if>
 
+        <!-- Hiển thị thông báo thành công nếu có -->
+        <c:if test="${not empty success}">
+            <div class="alert alert-success">${success}</div>
+        </c:if>
+
         <div class="input-group mb-3">
             <span class="input-group-text"><i class="fa fa-user"></i></span>
             <input type="text" placeholder="Tên đăng nhập" name="username" class="form-control" required>
@@ -29,6 +34,10 @@
         </div>
 
         <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+        
+        <div class="text-center mt-3">
+            <a href="${pageContext.request.contextPath}/forgot-password" class="text-decoration-none">Quên mật khẩu?</a>
+        </div>
     </form>
 
 </body>

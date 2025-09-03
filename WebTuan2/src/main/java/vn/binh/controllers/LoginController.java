@@ -23,6 +23,14 @@ public class LoginController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// Check for reset password success message
+		HttpSession session = req.getSession();
+		String resetSuccess = (String) session.getAttribute("resetSuccess");
+		if (resetSuccess != null) {
+			req.setAttribute("success", resetSuccess);
+			session.removeAttribute("resetSuccess");
+		}
+		
 		RequestDispatcher rd = req.getRequestDispatcher("/views/login.jsp");
 		rd.forward(req, resp);
 

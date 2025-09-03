@@ -23,6 +23,18 @@
 			<version>13.2.0.jre11</version>
 			<scope>compile</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-fileupload2-jakarta -->
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-fileupload2-jakarta</artifactId>
+    <version>2.0.0-M1</version>
+</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.18.0</version>
+		</dependency>
+
 		<!--
 		https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api -->
 		<dependency>
@@ -51,6 +63,11 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>vn.binh</groupId>
+			<artifactId>WebTuan1</artifactId>
+			<version>1.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

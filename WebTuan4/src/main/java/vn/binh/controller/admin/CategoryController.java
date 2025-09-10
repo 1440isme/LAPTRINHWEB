@@ -1,4 +1,4 @@
-package vn.binh.controller;
+package vn.binh.controller.admin;
 
 import java.io.File;
 import java.io.IOException;

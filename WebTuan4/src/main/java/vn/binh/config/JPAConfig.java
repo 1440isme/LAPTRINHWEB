@@ -2,36 +2,31 @@ package vn.binh.config;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
-import jakarta.persistence.PersistenceContext;
-import vn.binh.entity.Category;
 
-@PersistenceContext
 public class JPAConfig {
-
-	public static EntityManager getEntityManager() {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("dataSource");
-		return factory.createEntityManager();
-	}
-
-	public static void main(String[] args) {
-		EntityManager enma = JPAConfig.getEntityManager();
-		EntityTransaction trans = enma.getTransaction();
-		Category cate = new Category();
-		cate.setName("Binh");
-		cate.setImages("Binh.jpg");
+	
+	private static EntityManagerFactory factory;
+	
+	static {
 		try {
-			trans.begin();
-			enma.persist(cate);
-			trans.commit();
+			factory = Persistence.createEntityManagerFactory("dataSource");
 		} catch (Exception e) {
 			e.printStackTrace();
-			trans.rollback();
-			throw e;
-		} finally {
-			enma.close();
+			throw new RuntimeException("Failed to create EntityManagerFactory", e);
 		}
+	}
 
+	public static EntityManager getEntityManager() {
+		if (factory == null || !factory.isOpen()) {
+			factory = Persistence.createEntityManagerFactory("dataSource");
+		}
+		return factory.createEntityManager();
+	}
+	
+	public static void closeEntityManagerFactory() {
+		if (factory != null && factory.isOpen()) {
+			factory.close();
+		}
 	}
 }

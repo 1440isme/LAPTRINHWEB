@@ -33,6 +33,46 @@
 .feature-card:hover {
 	transform: translateY(-5px);
 }
+
+/* Avatar styling and hover effects */
+.avatar-container {
+  position: relative;
+  display: inline-block;
+}
+
+.avatar-image {
+  transition: all 0.3s ease;
+}
+
+.avatar-edit-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.avatar-container:hover .avatar-edit-overlay {
+  opacity: 1;
+}
+
+.avatar-edit-overlay label {
+  margin: 0;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 </style>
 </head>
 <body>
@@ -172,6 +212,61 @@
   </div>
 </div>
 <%@ include file="/common/web/footer.jsp"%>
+
+<script>
+// Preview avatar when file is selected
+document.getElementById('avatarInput').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        // Validate file type
+        const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+        if (!validTypes.includes(file.type)) {
+            alert('Vui lòng chọn file ảnh hợp lệ (JPG, PNG, GIF)');
+            this.value = '';
+            return;
+        }
+        
+        // Validate file size (max 5MB)
+        const maxSize = 5 * 1024 * 1024; // 5MB
+        if (file.size > maxSize) {
+            alert('Kích thước file không được vượt quá 5MB');
+            this.value = '';
+            return;
+        }
+        
+        // Create preview
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const previewImg = document.getElementById('previewAvatar');
+            previewImg.src = e.target.result;
+            
+            // Add a subtle animation effect
+            previewImg.style.opacity = '0.7';
+            setTimeout(() => {
+                previewImg.style.opacity = '1';
+            }, 100);
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+// Show file name when selected
+document.getElementById('avatarInput').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        // Create or update file name display
+        let fileNameDisplay = document.getElementById('fileNameDisplay');
+        if (!fileNameDisplay) {
+            fileNameDisplay = document.createElement('small');
+            fileNameDisplay.id = 'fileNameDisplay';
+            fileNameDisplay.className = 'text-muted mt-2 d-block';
+            document.querySelector('.avatar-container').parentNode.appendChild(fileNameDisplay);
+        }
+        fileNameDisplay.innerHTML = `<i class="fas fa-file-image me-1"></i>Đã chọn: ${file.name}`;
+    }
+});
+</script>
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 

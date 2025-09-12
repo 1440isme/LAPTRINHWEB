@@ -10,6 +10,8 @@
         box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
         border-bottom: 1px solid rgba(255, 255, 255, 0.18);
         transition: all 0.3s ease;
+        position: relative !important;
+        z-index: 1030 !important;
       }
       
       .navbar-brand {
@@ -86,6 +88,11 @@
       }
       
       /* Dropdown styling */
+      .dropdown {
+        position: relative;
+        z-index: 1050 !important;
+      }
+      
       .dropdown-toggle {
         border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 12px;
@@ -101,25 +108,21 @@
       }
       
       .dropdown-menu {
-        background: rgba(255, 255, 255, 0.9);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
         border-radius: 12px;
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
         overflow: hidden;
         transform-origin: top center;
         animation: dropdownAnimation 0.3s ease;
+        z-index: 9999 !important;
+        position: absolute !important;
+        min-width: 200px;
       }
       
-      @keyframes dropdownAnimation {
-        from {
-          opacity: 0;
-          transform: translateY(-10px) scale(0.95);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0) scale(1);
-        }
+      .dropdown-menu.show {
+        z-index: 9999 !important;
       }
       
       .dropdown-item {
@@ -219,6 +222,15 @@
                   <i class="fas fa-user-cog me-2"></i> Chỉnh sửa thông tin
                 </a>
               </li>
+              
+              <!-- Hiển thị nút Trang quản trị chỉ cho admin (role = 1) -->
+              <c:if test="${sessionScope.account.role == 1}">
+                <li>
+                  <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/home">
+                    <i class="fas fa-cogs me-2"></i> Trang quản trị
+                  </a>
+                </li>
+              </c:if>
             
               <li><hr class="dropdown-divider"></li>
               <li>

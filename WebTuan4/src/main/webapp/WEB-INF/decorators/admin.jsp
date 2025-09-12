@@ -1,18 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/common/taglib.jsp" %>
-<%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
-<html>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ include file="/common/taglib.jsp"%>
+
+<!DOCTYPE html>
+<html lang="vi">
 <head>
-    <title><decorator:title default="Admin Page"/></title>
+<title><sitemesh:write property='title' /></title>
+<sitemesh:write property='head' />
 </head>
 <body>
-    <jsp:include page="/common/admin/header.jsp"/>
-    <jsp:include page="/common/admin/left.jsp"/>
 
-    <div class="content">
-        <decorator:body/>
-    </div>
 
-    <jsp:include page="/common/admin/footer.jsp"/>
+
+	<sitemesh:write property="body" />
+
+
+	<!-- Bootstrap JS -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -9,16 +9,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
-        <div class="container">
-            <a class="navbar-brand" href="#">WebTuan4 - Admin Panel</a>
-            <div class="navbar-nav ms-auto">
-                <span class="navbar-text me-3">Xin chào, ${sessionScope.account.fullname} (Admin)</span>
-                <a class="btn btn-outline-light" href="${pageContext.request.contextPath}/logout">Đăng xuất</a>
-            </div>
-        </div>
-    </nav>
-    
+  <!-- Header -->
+  
+  <%@ include file="/common/admin/header.jsp"%>
     <div class="container-fluid mt-4">
         <div class="row">
             <div class="col-12">
@@ -28,9 +21,9 @@
                     <div class="col-md-3">
                         <div class="card bg-primary text-white">
                             <div class="card-body">
-                                <h5 class="card-title">Quản lý User</h5>
-                                <p class="card-text">Xem và quản lý người dùng</p>
-                                <a href="${pageContext.request.contextPath}/admin/users" class="btn btn-light">Xem chi tiết</a>
+                                <h5 class="card-title">Quản lý Danh mục</h5>
+                                <p class="card-text">Xem và quản lý danh mục</p>
+                                <a href="${pageContext.request.contextPath}/admin/categories" class="btn btn-light">Xem chi tiết</a>
                             </div>
                         </div>
                     </div>
@@ -85,6 +78,7 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <%@ include file="/common/admin/footer.jsp"%>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </html>

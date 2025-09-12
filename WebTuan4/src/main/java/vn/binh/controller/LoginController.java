@@ -22,7 +22,7 @@ public class LoginController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String url = req.getRequestURI();
-		
+
 		if (url.contains("/login")) {
 			showLoginPage(req, resp);
 		} else if (url.contains("/register")) {
@@ -39,9 +39,9 @@ public class LoginController extends HttpServlet {
 		resp.setContentType("text/html");
 		resp.setCharacterEncoding("UTF-8");
 		req.setCharacterEncoding("UTF-8");
-		
+
 		String url = req.getRequestURI();
-		
+
 		if (url.contains("/login")) {
 			processLogin(req, resp);
 		} else if (url.contains("/register")) {
@@ -52,8 +52,7 @@ public class LoginController extends HttpServlet {
 	}
 
 	// LOGIN FUNCTIONS
-	private void showLoginPage(HttpServletRequest req, HttpServletResponse resp) 
-			throws ServletException, IOException {
+	private void showLoginPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// Check for reset password success message
 		HttpSession session = req.getSession();
 		String resetSuccess = (String) session.getAttribute("resetSuccess");
@@ -66,32 +65,32 @@ public class LoginController extends HttpServlet {
 		rd.forward(req, resp);
 	}
 
-	private void processLogin(HttpServletRequest req, HttpServletResponse resp) 
-			throws ServletException, IOException {
+	private void processLogin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
 		String alertMsg;
-		
+
 		if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
 			alertMsg = "Tài khoản hoặc mật khẩu không được rỗng";
 			req.setAttribute("alert", alertMsg);
 			req.getRequestDispatcher("/views/login/login.jsp").forward(req, resp);
 			return;
 		}
-		
+
 		User user = userService.login(username, password);
 		if (user != null) {
 			HttpSession session = req.getSession(true);
 			session.setAttribute("account", user);
-			
-			// Check user role and redirect accordingly
-			if (user.getRole() == 1) {
-				// Admin role - redirect to admin home
-				resp.sendRedirect(req.getContextPath() + "/admin/home");
-			} else {
-				// User role - redirect to user home
-				resp.sendRedirect(req.getContextPath() + "/home");
-			}
+
+			resp.sendRedirect(req.getContextPath() + "/home");
+//			// Check user role and redirect accordingly
+//			if (user.getRole() == 1) {
+//				// Admin role - redirect to admin home
+//				resp.sendRedirect(req.getContextPath() + "/admin/home");
+//			} else {
+//				// User role - redirect to user home
+//				resp.sendRedirect(req.getContextPath() + "/home");
+//			}
 		} else {
 			alertMsg = "Tài khoản hoặc mật khẩu không đúng";
 			req.setAttribute("alert", alertMsg);
@@ -100,13 +99,13 @@ public class LoginController extends HttpServlet {
 	}
 
 	// REGISTER FUNCTIONS
-	private void showRegisterPage(HttpServletRequest req, HttpServletResponse resp) 
+	private void showRegisterPage(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		RequestDispatcher rd = req.getRequestDispatcher("/views/login/register.jsp");
 		rd.forward(req, resp);
 	}
 
-	private void processRegister(HttpServletRequest req, HttpServletResponse resp) 
+	private void processRegister(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
@@ -114,18 +113,19 @@ public class LoginController extends HttpServlet {
 		String fullname = req.getParameter("fullname");
 		String email = req.getParameter("email");
 		String phone = req.getParameter("phone");
-		
+
 		String alertMsg = "";
-		
+
 		// Validate input
-		if (username == null || password == null || fullname == null || email == null || phone == null ||
-			username.isEmpty() || password.isEmpty() || fullname.isEmpty() || email.isEmpty() || phone.isEmpty()) {
+		if (username == null || password == null || fullname == null || email == null || phone == null
+				|| username.isEmpty() || password.isEmpty() || fullname.isEmpty() || email.isEmpty()
+				|| phone.isEmpty()) {
 			alertMsg = "Vui lòng điền đầy đủ thông tin";
 			req.setAttribute("alert", alertMsg);
 			req.getRequestDispatcher("/views/login/register.jsp").forward(req, resp);
 			return;
 		}
-		
+
 		// Check password confirmation
 		if (!password.equals(confirmPassword)) {
 			alertMsg = "Mật khẩu xác nhận không khớp";
@@ -133,7 +133,7 @@ public class LoginController extends HttpServlet {
 			req.getRequestDispatcher("/views/login/register.jsp").forward(req, resp);
 			return;
 		}
-		
+
 		// Check if username exists
 		if (userService.checkUsernameExist(username)) {
 			alertMsg = "Tên đăng nhập đã tồn tại";
@@ -141,7 +141,7 @@ public class LoginController extends HttpServlet {
 			req.getRequestDispatcher("/views/login/register.jsp").forward(req, resp);
 			return;
 		}
-		
+
 		// Check if email exists
 		if (userService.checkEmailExist(email)) {
 			alertMsg = "Email đã được sử dụng";
@@ -149,10 +149,10 @@ public class LoginController extends HttpServlet {
 			req.getRequestDispatcher("/views/login/register.jsp").forward(req, resp);
 			return;
 		}
-		
+
 		// Register user with phone
 		boolean registerSuccess = userService.register(email, password, username, fullname, phone);
-		
+
 		if (registerSuccess) {
 			req.setAttribute("success", "Đăng ký thành công! Vui lòng đăng nhập.");
 			req.getRequestDispatcher("/views/login/login.jsp").forward(req, resp);
@@ -164,8 +164,7 @@ public class LoginController extends HttpServlet {
 	}
 
 	// LOGOUT FUNCTION
-	private void processLogout(HttpServletRequest req, HttpServletResponse resp) 
-			throws ServletException, IOException {
+	private void processLogout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession(false);
 		if (session != null) {
 			session.removeAttribute("account");
@@ -175,29 +174,29 @@ public class LoginController extends HttpServlet {
 	}
 
 	// FORGOT PASSWORD FUNCTIONS
-	private void showForgotPasswordPage(HttpServletRequest req, HttpServletResponse resp) 
+	private void showForgotPasswordPage(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		RequestDispatcher rd = req.getRequestDispatcher("/views/login/forgot-password.jsp");
 		rd.forward(req, resp);
 	}
 
-	private void processForgotPassword(HttpServletRequest req, HttpServletResponse resp) 
+	private void processForgotPassword(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String email = req.getParameter("email");
 		String newPassword = req.getParameter("newPassword");
 		String confirmPassword = req.getParameter("confirmPassword");
-		
+
 		String alertMsg = "";
-		
+
 		// Validate input
-		if (email == null || newPassword == null || confirmPassword == null ||
-			email.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
+		if (email == null || newPassword == null || confirmPassword == null || email.isEmpty() || newPassword.isEmpty()
+				|| confirmPassword.isEmpty()) {
 			alertMsg = "Vui lòng điền đầy đủ thông tin";
 			req.setAttribute("alert", alertMsg);
 			req.getRequestDispatcher("/views/login/forgot-password.jsp").forward(req, resp);
 			return;
 		}
-		
+
 		// Check password confirmation
 		if (!newPassword.equals(confirmPassword)) {
 			alertMsg = "Mật khẩu xác nhận không khớp";
@@ -205,7 +204,7 @@ public class LoginController extends HttpServlet {
 			req.getRequestDispatcher("/views/login/forgot-password.jsp").forward(req, resp);
 			return;
 		}
-		
+
 		// Check if email exists - SỬA LẠI ĐÂY
 		User user = userService.findByEmail(email); // Tìm theo email thay vì username
 		if (user == null) {
@@ -214,11 +213,11 @@ public class LoginController extends HttpServlet {
 			req.getRequestDispatcher("/views/login/forgot-password.jsp").forward(req, resp);
 			return;
 		}
-		
+
 		// Update password
 		user.setPassword(newPassword);
 		userService.edit(user);
-		
+
 		// Set success message and redirect to login
 		HttpSession session = req.getSession();
 		session.setAttribute("resetSuccess", "Đặt lại mật khẩu thành công! Vui lòng đăng nhập.");

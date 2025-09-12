@@ -160,7 +160,7 @@ public class UserDAOImpl implements UserDAO {
 		EntityManager enma = JPAConfig.getEntityManager();
 		try {
 			TypedQuery<Long> query = enma.createQuery(
-				"SELECT COUNT(u) FROM User u WHERE u.name = :email", 
+				"SELECT COUNT(u) FROM User u WHERE u.email = :email", 
 				Long.class
 			);
 			query.setParameter("email", email);
@@ -220,7 +220,7 @@ public class UserDAOImpl implements UserDAO {
 		EntityManager enma = JPAConfig.getEntityManager();
 		try {
 			TypedQuery<User> query = enma.createQuery(
-				"SELECT u FROM User u WHERE u.name = :email", 
+				"SELECT u FROM User u WHERE u.email = :email", 
 				User.class
 			);
 			query.setParameter("email", email);

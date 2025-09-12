@@ -1,18 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"    pageEncoding="UTF-8"%>
-<%@ include file="/common/taglib.jsp" %>
-     <%@taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ include file="/common/taglib.jsp"%>
+
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<title><sitemesh:write property='title' /></title>
+<sitemesh:write property='head' />
 </head>
 <body>
 
- <%@include file="/common/web/header.jsp"%>
- 
- <hr>
- <sitemesh:write property = "body" />
- 
+
+
+	<sitemesh:write property="body" />
+
+
+	<!-- Bootstrap JS -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

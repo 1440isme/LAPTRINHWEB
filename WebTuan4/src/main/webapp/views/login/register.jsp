@@ -51,6 +51,15 @@
                             </div>
 
                             <div class="mb-3">
+                                <label for="phone" class="form-label">Số điện thoại:</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                                    <input type="tel" class="form-control" id="phone" name="phone" 
+                                           placeholder="Số điện thoại" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
                                 <label for="password" class="form-label">Mật khẩu:</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fa fa-lock"></i></span>

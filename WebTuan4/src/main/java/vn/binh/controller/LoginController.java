@@ -113,12 +113,13 @@ public class LoginController extends HttpServlet {
 		String confirmPassword = req.getParameter("confirmPassword");
 		String fullname = req.getParameter("fullname");
 		String email = req.getParameter("email");
+		String phone = req.getParameter("phone");
 		
 		String alertMsg = "";
 		
 		// Validate input
-		if (username == null || password == null || fullname == null || email == null ||
-			username.isEmpty() || password.isEmpty() || fullname.isEmpty() || email.isEmpty()) {
+		if (username == null || password == null || fullname == null || email == null || phone == null ||
+			username.isEmpty() || password.isEmpty() || fullname.isEmpty() || email.isEmpty() || phone.isEmpty()) {
 			alertMsg = "Vui lòng điền đầy đủ thông tin";
 			req.setAttribute("alert", alertMsg);
 			req.getRequestDispatcher("/views/login/register.jsp").forward(req, resp);
@@ -149,8 +150,8 @@ public class LoginController extends HttpServlet {
 			return;
 		}
 		
-		// Register user
-		boolean registerSuccess = userService.register(email, password, username, fullname);
+		// Register user with phone
+		boolean registerSuccess = userService.register(email, password, username, fullname, phone);
 		
 		if (registerSuccess) {
 			req.setAttribute("success", "Đăng ký thành công! Vui lòng đăng nhập.");
@@ -205,8 +206,8 @@ public class LoginController extends HttpServlet {
 			return;
 		}
 		
-		// Check if email exists
-		User user = userService.findByUsername(email); // Assuming email is stored in username field
+		// Check if email exists - SỬA LẠI ĐÂY
+		User user = userService.findByEmail(email); // Tìm theo email thay vì username
 		if (user == null) {
 			alertMsg = "Email không tồn tại trong hệ thống";
 			req.setAttribute("alert", alertMsg);

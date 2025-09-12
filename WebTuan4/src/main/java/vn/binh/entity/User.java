@@ -34,6 +34,9 @@ public class User implements Serializable {
 	@Column(name = "username", columnDefinition = "nvarchar(200)")
 	private String name;
 
+	@Column(name = "email", columnDefinition = "nvarchar(200)")
+	private String email;
+
 	@Column(name = "password", columnDefinition = "nvarchar(200)")
 	private String password;
 

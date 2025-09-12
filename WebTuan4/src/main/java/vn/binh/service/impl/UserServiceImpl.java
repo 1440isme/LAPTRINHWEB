@@ -57,6 +57,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public User findByEmail(String email) {
+		return userDAO.findByEmail(email);
+	}
+
+	@Override
 	public boolean register(String email, String password, String username, String fullname) {
 		if (checkUsernameExist(username)) {
 			return false;
@@ -69,6 +74,7 @@ public class UserServiceImpl implements UserService {
 		// Tạo user mới
 		User user = new User();
 		user.setName(username);
+		user.setEmail(email);  // Set email field
 		user.setPassword(password);
 		user.setFullname(fullname);
 		user.setPhone(""); // Có thể để trống
@@ -85,10 +91,37 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public boolean register(String email, String password, String username, String fullname, String phone) {
+		if (checkUsernameExist(username)) {
+			return false;
+		}
+
+		if (checkEmailExist(email)) {
+			return false;
+		}
+
+		// Tạo user mới với phone
+		User user = new User();
+		user.setName(username);
+		user.setEmail(email);
+		user.setPassword(password);
+		user.setFullname(fullname);
+		user.setPhone(phone);  // Set phone field
+		user.setImages(""); // Có thể để trống
+		user.setRole(2); // Role mặc định là user (không phải admin)
+
+		try {
+			userDAO.create(user);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
 	public boolean checkEmailExist(String email) {
-		// Implement check email exist logic
-		// For now, return false since we don't have email field in User entity
-		return false;
+		return userDAO.checkEmailExist(email);
 	}
 
 	@Override

@@ -1,55 +1,98 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Trang chủ - User</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>Trang home của user</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+.hero-section {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: white;
+	padding: 80px 0;
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+.feature-card {
+	transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+	transform: translateY(-5px);
+}
+</style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="#">WebTuan4 - User</a>
-            <div class="navbar-nav ms-auto">
-                <span class="navbar-text me-3">Xin chào, ${user.fullname}</span>
-                <a class="btn btn-outline-light" href="${pageContext.request.contextPath}/logout">Đăng xuất</a>
-            </div>
-        </div>
-    </nav>
-    
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-12">
-                <div class="jumbotron bg-light p-5 rounded">
-                    <h1 class="display-4">Chào mừng đến với hệ thống!</h1>
-                    <p class="lead">Bạn đang đăng nhập với tài khoản user.</p>
-                    <hr class="my-4">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h5>Thông tin tài khoản:</h5>
-                            <ul class="list-group">
-                                <li class="list-group-item"><strong>ID:</strong> ${user.id}</li>
-                                <li class="list-group-item"><strong>Username:</strong> ${user.name}</li>
-                                <li class="list-group-item"><strong>Họ tên:</strong> ${user.fullname}</li>
-                                <li class="list-group-item"><strong>Phone:</strong> ${user.phone}</li>
-                                <li class="list-group-item"><strong>Role:</strong> User (${user.role})</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-6">
-                            <h5>Chức năng:</h5>
-                            <div class="d-grid gap-2">
-                                <button class="btn btn-primary" type="button">Xem thông tin cá nhân</button>
-                                <button class="btn btn-secondary" type="button">Cập nhật thông tin</button>
-                                <button class="btn btn-info" type="button">Đổi mật khẩu</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+    	<%@ include file="/common/web/header.jsp"%> 
+	
+	<!-- Body -->
+	<div class="container my-5">
+	
+		<h2 class="text-center mb-4">Sản phẩm nổi bật</h2>
+		<div class="row g-4">
+			<!-- Product 1 -->
+			<div class="col-md-4">
+				<div class="card h-100 shadow-sm">
+					<img src="https://via.placeholder.com/300x200" class="card-img-top"
+						alt="Sản phẩm 1">
+					<div class="card-body">
+						<h5 class="card-title">Sản phẩm 1</h5>
+						<p class="card-text text-muted">Mô tả ngắn gọn về sản phẩm.</p>
+						<p class="fw-bold text-danger">250.000đ</p>
+						<a href="#" class="btn btn-primary"><i
+							class="fas fa-cart-plus"></i> Thêm vào giỏ</a>
+					</div>
+				</div>
+			</div>
+			<!-- Product 2 -->
+			<div class="col-md-4">
+				<div class="card h-100 shadow-sm">
+					<img src="https://via.placeholder.com/300x200" class="card-img-top"
+						alt="Sản phẩm 2">
+					<div class="card-body">
+						<h5 class="card-title">Sản phẩm 2</h5>
+						<p class="card-text text-muted">Mô tả ngắn gọn về sản phẩm.</p>
+						<p class="fw-bold text-danger">350.000đ</p>
+						<a href="#" class="btn btn-primary"><i
+							class="fas fa-cart-plus"></i> Thêm vào giỏ</a>
+					</div>
+				</div>
+			</div>
+			<!-- Product 3 -->
+			<div class="col-md-4">
+				<div class="card h-100 shadow-sm">
+					<img src="https://via.placeholder.com/300x200" class="card-img-top"
+						alt="Sản phẩm 3">
+					<div class="card-body">
+						<h5 class="card-title">Sản phẩm 3</h5>
+						<p class="card-text text-muted">Mô tả ngắn gọn về sản phẩm.</p>
+						<p class="fw-bold text-danger">450.000đ</p>
+						<a href="#" class="btn btn-primary"><i
+							class="fas fa-cart-plus"></i> Thêm vào giỏ</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<br>
+	<%@ include file="/common/web/footer.jsp"%>
 </body>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </html>

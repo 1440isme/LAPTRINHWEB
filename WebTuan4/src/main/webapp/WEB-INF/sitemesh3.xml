@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
- <sitemesh
- >
- <mapping path="/*" name="web" decorator="web.jsp"/>
- <mapping path="/admin/*" name="admin" decorator="admin.jsp"/>
- <!-- Exclude path from decoration. -->
- <mapping path="/api*" exclude="true"/>
- </sitemesh>
+<sitemesh>
+	<mapping path="/*" name="web" decorator="web.jsp" />
+	<mapping path="/admin/*" name="admin" decorator="admin.jsp" />
+	<!-- Exclude path from decoration. -->
+	<mapping path="/api*" exclude="true" />
+	<mapping path="*.css" exclude="true"/>
+    <mapping path="*.js" exclude="true"/>
+    <mapping path="*.png" exclude="true"/>
+    <mapping path="*.jpg" exclude="true"/>
+    <mapping path="*.gif" exclude="true"/>
+</sitemesh>

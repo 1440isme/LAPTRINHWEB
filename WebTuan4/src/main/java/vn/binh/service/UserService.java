@@ -23,7 +23,11 @@ public interface UserService {
 
 	User findByUsername(String username);
 
+	User findByEmail(String email);
+
 	boolean register(String email, String password, String username, String fullname);
+
+	boolean register(String email, String password, String username, String fullname, String phone);
 
 	boolean checkEmailExist(String email);
 

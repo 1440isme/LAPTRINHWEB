@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/layout-admin}">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Danh sách tác giả</title>
+	<!-- Bootstrap 5 & Font Awesome -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+	<style>
+		body {
+			background: #f8fafc;
+		}
+
+		.card {
+			border-radius: 16px;
+			box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+		}
+
+		.table th {
+			border: none;
+			font-weight: 600;
+			color: #495057;
+			background: #f8f9fa;
+		}
+
+		.btn {
+			border-radius: 8px;
+		}
+
+		.author-name {
+			font-weight: 500;
+			color: #2d3748;
+		}
+
+		.author-birth {
+			font-size: 0.875rem;
+			color: #718096;
+		}
+	</style>
+</head>
+
+<body>
+	<div layout:fragment="content">
+
+		<div class="container py-5">
+			<div class="card p-4">
+				<div class="d-flex justify-content-between align-items-center mb-4">
+					<h4>
+						<i class="fa fa-users me-2"></i>Danh sách tác giả
+					</h4>
+
+					<div>
+						<a th:href="@{/admin/author/search}" class="btn btn-primary me-2">
+							<i class="fas fa-search me-1"></i>Tìm
+							kiếm
+						</a> <a th:href="@{/admin/author/add}" class="btn btn-primary"> <i
+								class="fa fa-plus me-1"></i>Thêm
+							mới
+						</a>
+					</div>
+				</div>
+
+				<!-- Hiển thị thông báo thành công/lỗi -->
+				<div th:if="${message != null}" class="alert alert-success alert-dismissible fade show" role="alert">
+					<i class="fa fa-check-circle me-2"></i><span th:text="${message}"></span>
+					<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+				</div>
+				<div th:if="${error != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
+					<i class="fa fa-exclamation-triangle me-2"></i><span th:text="${error}"></span>
+					<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+				</div>
+
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Tên tác giả</th>
+								<th>Ngày sinh</th>
+								<th>Số sách</th>
+								<th>Thao tác</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="author : ${authorList}">
+								<td class="align-middle" th:text="${author.authorId}"></td>
+								<td class="align-middle">
+									<div class="author-name" th:text="${author.authorName}"></div>
+								</td>
+								<td class="align-middle">
+									<span class="author-birth" th:if="${author.dateOfBirth != null}">
+										<i class="fa fa-calendar me-1"></i><span th:text="${author.dateOfBirth}"></span>
+									</span>
+									<span class="text-muted" th:if="${author.dateOfBirth == null}">Chưa cập nhật</span>
+								</td>
+								<td class="align-middle">
+									<span class="badge bg-info"
+										th:if="${author.books != null and !#lists.isEmpty(author.books)}"
+										th:text="${#lists.size(author.books)} + ' sách'"></span>
+									<span class="badge bg-secondary"
+										th:if="${author.books == null or #lists.isEmpty(author.books)}">0 sách</span>
+								</td>
+								<td class="align-middle">
+									<a th:href="@{/admin/author/edit(authorId=${author.authorId})}"
+										class="btn btn-sm btn-outline-warning me-2">
+										<i class="fa fa-edit"></i> Sửa
+									</a>
+									<form th:action="@{/admin/author/delete}" method="post" style="display:inline"
+										onsubmit="return confirm('Bạn có chắc chắn muốn xóa tác giả này?')">
+										<input type="hidden" name="authorId" th:value="${author.authorId}" />
+										<button type="submit" class="btn btn-sm btn-outline-danger">
+											<i class="fa fa-trash"></i> Xóa
+										</button>
+									</form>
+								</td>
+							</tr>
+							<tr th:if="${authorList == null or #lists.isEmpty(authorList)}">
+								<td colspan="5" class="text-center text-muted py-4">
+									<i class="fa fa-inbox fa-3x mb-3 d-block"></i>
+									Chưa có tác giả nào
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<!-- Phân trang -->
+				<div th:if="${totalPages != null and totalPages > 1}">
+					<nav aria-label="Phân trang tác giả">
+						<ul class="pagination justify-content-center">
+							<li class="page-item" th:if="${currentPage > 1}">
+								<a class="page-link" th:href="@{|?page=${currentPage - 1}|}">
+									<i class="fa fa-chevron-left"></i>
+								</a>
+							</li>
+
+							<li th:each="pageNum : ${#numbers.sequence(1, totalPages)}" class="page-item"
+								th:classappend="${pageNum == currentPage} ? ' active'">
+								<a class="page-link" th:href="@{|?page=${pageNum}|}" th:text="${pageNum}"></a>
+							</li>
+
+							<li class="page-item" th:if="${currentPage < totalPages}">
+								<a class="page-link" th:href="@{|?page=${currentPage + 1}|}">
+									<i class="fa fa-chevron-right"></i>
+								</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
